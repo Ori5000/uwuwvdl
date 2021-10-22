@@ -43,10 +43,10 @@ realPath = os.path.realpath(currentFile)
 dirPath = os.path.dirname(realPath)
 dirName = os.path.basename(dirPath)
 
-youtubedlexe = dirPath + '/binaries/yt-dlp.exe'
-aria2cexe = dirPath + '/binaries/aria2c.exe'
-mp4decryptexe = dirPath + '/binaries/mp4decrypt_new.exe'
-mkvmergeexe = dirPath + '/binaries/mkvmerge.exe'
+youtubedlexe = dirPath + 'yt-dlp'
+aria2cexe = dirPath + 'aria2c'
+mp4decryptexe = dirPath + '{mp4decrypt}'
+mkvmergeexe = dirPath + './mkvmerge'
 SubtitleEditexe = dirPath + '/binaries/SubtitleEdit.exe'
 
 # mpdurl = str(args.mpd)
