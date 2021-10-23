@@ -54,7 +54,7 @@ subtitle = str(args.subtitle)
 
 if args.id:
     print(f'Selected MPD : {json_mpd_url}\n')    
-    yt-dlp -k --allow-unplayable-formats --no-check-certificate -F f'{json_mpd_url}]) "
+    yt-dlp -k --allow-unplayable-formats --no-check-certificate -F f'{json_mpd_url}])
 
     vid_id = input("\nEnter Video ID : ")
     audio_id = input("Enter Audio ID : ")
