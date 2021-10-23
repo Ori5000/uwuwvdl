@@ -43,7 +43,6 @@ realPath = os.path.realpath(currentFile)
 dirPath = os.path.dirname(realPath)
 dirName = os.path.basename(dirPath)
 
-youtubedlexe = dirPath + 'yt-dlp'
 aria2cexe = dirPath + 'aria2c'
 mp4decryptexe = dirPath + '{mp4decrypt}'
 mkvmergeexe = dirPath + './mkvmerge'
@@ -55,17 +54,17 @@ subtitle = str(args.subtitle)
 
 if args.id:
     print(f'Selected MPD : {json_mpd_url}\n')    
-    subprocess.run([youtubedlexe, '-k', '--allow-unplayable-formats', '--no-check-certificate', '-F', json_mpd_url])
+    yt-dlp -k --allow-unplayable-formats --no-check-certificate -F json_mpd_url])
 
     vid_id = input("\nEnter Video ID : ")
     audio_id = input("Enter Audio ID : ")
-    subprocess.run([youtubedlexe, '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', audio_id, '--fixup', 'never', json_mpd_url, '-o', 'encrypted.m4a', '--external-downloader', aria2cexe, '--external-downloader-args', '-x 16 -s 16 -k 1M'])
-    subprocess.run([youtubedlexe, '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', vid_id, '--fixup', 'never', json_mpd_url, '-o', 'encrypted.mp4', '--external-downloader', aria2cexe, '--external-downloader-args', '-x 16 -s 16 -k 1M'])   
+    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f audio_id --fixup never json_mpd_url -o encrypted.m4a --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M])
+    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f vid_id --fixup never json_mpd_url -o encrypted.mp4 --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M])
 
 else:
     print(f'Selected MPD : {json_mpd_url}\n')
-    subprocess.run([youtubedlexe, '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', 'ba', '--fixup', 'never', json_mpd_url, '-o', 'encrypted.m4a', '--external-downloader', aria2cexe, '--external-downloader-args', '-x 16 -s 16 -k 1M'])
-    subprocess.run([youtubedlexe, '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', 'bv', '--fixup', 'never', json_mpd_url, '-o', 'encrypted.mp4', '--external-downloader', aria2cexe, '--external-downloader-args', '-x 16 -s 16 -k 1M'])    
+    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f ba --fixup never json_mpd_url -o encrypted.m4a --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M])
+    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f bv --fixup never json_mpd_url -o encrypted.mp4 --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M])   
 
 
 print("\nDecrypting .....")
