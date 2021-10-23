@@ -43,9 +43,7 @@ realPath = os.path.realpath(currentFile)
 dirPath = os.path.dirname(realPath)
 dirName = os.path.basename(dirPath)
 
-aria2cexe = dirPath + 'aria2c'
-mp4decryptexe = dirPath + '{mp4decrypt}'
-mkvmergeexe = dirPath + './mkvmerge'
+mp4decrypt = './Bento4-SDK-1-6-0-639.x86_64-unknown-linux/bin/mp4decrypt'
 SubtitleEditexe = dirPath + '/binaries/SubtitleEdit.exe'
 
 # mpdurl = str(args.mpd)
@@ -54,33 +52,33 @@ subtitle = str(args.subtitle)
 
 if args.id:
     print(f'Selected MPD : {json_mpd_url}\n')    
-    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -F '{json_mpd_url}'
+    subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '-F', json_mpd_url])
 
     vid_id = input("\nEnter Video ID : ")
     audio_id = input("Enter Audio ID : ")
-    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f audio_id --fixup never {json_mpd_url} -o encrypted.m4a --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M
-    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f vid_id --fixup never {json_mpd_url} -o encrypted.mp4 --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M
+    subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', audio_id, '--fixup', 'never', json_mpd_url, '-o', 'encrypted.m4a', '--external-downloader', 'aria2c', '--external-downloader-args', '-x 16 -s 16 -k 1M'])
+    subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', vid_id, '--fixup', 'never', json_mpd_url, '-o', 'encrypted.mp4', '--external-downloader', 'aria2c', '--external-downloader-args', '-x 16 -s 16 -k 1M'])   
 
 else:
     print(f'Selected MPD : {json_mpd_url}\n')
-    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f ba --fixup never {json_mpd_url} -o encrypted.m4a --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M
-    !yt-dlp -k --allow-unplayable-formats --no-check-certificate -f bv --fixup never {json_mpd_url} -o encrypted.mp4 --external-downloader aria2cexe --external-downloader-args -x 16 -s 16 -k 1M
+    subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', 'ba', '--fixup', 'never', json_mpd_url, '-o', 'encrypted.m4a', '--external-downloader', 'aria2c', '--external-downloader-args', '-x 16 -s 16 -k 1M'])
+    subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', 'bv', '--fixup', 'never', json_mpd_url, '-o', 'encrypted.mp4', '--external-downloader', 'aria2c', '--external-downloader-args', '-x 16 -s 16 -k 1M'])    
 
 
 print("\nDecrypting .....")
-subprocess.run(f'{mp4decryptexe} --show-progress {keys} encrypted.m4a decrypted.m4a', shell=True)
-subprocess.run(f'{mp4decryptexe} --show-progress {keys} encrypted.mp4 decrypted.mp4', shell=True)  
+subprocess.run([mp4decrypt, '--show-progress', keys, 'encrypted.m4a', 'decrypted.m4a'])
+subprocess.run([mp4decrypt, '--show-progress', keys, 'encrypted.mp4', 'decrypted.mp4'])
 
 if args.subtitle:
     subprocess.run(f'{aria2cexe} {subtitle}', shell=True)
     os.system('ren *.xml en.xml')
     subprocess.run(f'{SubtitleEditexe} /convert en.xml srt', shell=True) 
     print("Merging .....")
-    subprocess.run([mkvmergeexe, '--ui-language' ,'en', '--output', output +'.mkv', '--language', '0:eng', '--default-track', '0:yes', '--compression', '0:none', 'decrypted.mp4', '--language', '0:eng', '--default-track', '0:yes', '--compression' ,'0:none', 'decrypted.m4a','--language', '0:eng','--track-order', '0:0,1:0,2:0,3:0,4:0', 'en.srt'])
+    subprocess.run(['./mkvmerge', '--ui-language' ,'en', '--output', output +'.mkv', '--language', '0:eng', '--default-track', '0:yes', '--compression', '0:none', 'decrypted.mp4', '--language', '0:eng', '--default-track', '0:yes', '--compression' ,'0:none', 'decrypted.m4a','--language', '0:eng','--track-order', '0:0,1:0,2:0,3:0,4:0', 'en.srt'])
     print("\nAll Done .....")
 else:
     print("Merging .....")
-    subprocess.run([mkvmergeexe, '--ui-language' ,'en', '--output', output +'.mkv', '--language', '0:eng', '--default-track', '0:yes', '--compression', '0:none', 'decrypted.mp4', '--language', '0:eng', '--default-track', '0:yes', '--compression' ,'0:none', 'decrypted.m4a','--language', '0:eng','--track-order', '0:0,1:0,2:0,3:0,4:0'])
+    subprocess.run(['./mkvmerge', '--ui-language' ,'en', '--output', output +'.mkv', '--language', '0:eng', '--default-track', '0:yes', '--compression', '0:none', 'decrypted.mp4', '--language', '0:eng', '--default-track', '0:yes', '--compression' ,'0:none', 'decrypted.m4a','--language', '0:eng','--track-order', '0:0,1:0,2:0,3:0,4:0'])
     print("\nAll Done .....")    
 
 if args.delenc:
