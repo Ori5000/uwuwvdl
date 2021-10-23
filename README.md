@@ -3,6 +3,9 @@ This is a script created to WEB-DL L3 Widevine Content.
 
 Works well with .mpd files , for m3u8 please use n_m3u8 program (not included in this script).
 
+#### Just hit the button below and get going:
+<a href="https://colab.research.google.com/github/Ori5000/uwuwvdl/blob/main/uwuwvdl.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 ## How to use
 ### Requirements
 * Widevine Key Guesser
