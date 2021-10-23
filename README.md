@@ -1,4 +1,4 @@
-# widevine-L3-WEB-DL-Script
+# uwuwvdl
 This is a script created to WEB-DL L3 Widevine Content.
 
 Works well with .mpd files , for m3u8 please use n_m3u8 program (not included in this script).
