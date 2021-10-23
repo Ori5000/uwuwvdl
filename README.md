@@ -17,9 +17,9 @@ Works well with .mpd files , for m3u8 please use n_m3u8 program (not included in
 Go to the protected stream you want to download. Activate the plugin (restart may be required after installing the extension) and download the extracted keys (keys.json).
 
 ### Decode the video
-Open the project in Google Colab. Copy the downloaded keys.json file to the folder (/content).
+Open the project in Google Colab.
 
-Mount Google Drive & Install Dependencies then run the downloader.
+Mount Google Drive & Install Dependencies, upload `keys.json` then run the downloader.
 
 The script will look in the keys.json file, starting from the second element in the JSON array. If the script can't find any keys, either modify the script (line 27 and 31), or the keys.json. See <https://gist.github.com/parnexcodes/74fef2e33a2171031000a97c371a1a65> for examples for some common use cases.
 
