@@ -46,7 +46,7 @@ if args.id:
     subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '-F', json_mpd_url])
 
     vid_id = input("\nEnter Video ID : ")
-    audio_id = input("Enter Audio URL : ")
+    audio_url = input("Enter Audio URL : ")
     subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '--fixup', 'never', '-o', 'encrypted.m4a', '--external-downloader', 'aria2c', '--external-downloader-args', '-x 16 -s 16 -k 1M', audio_url])
     subprocess.run(['yt-dlp', '-k', '--allow-unplayable-formats', '--no-check-certificate', '-f', vid_id, '--fixup', 'never', json_mpd_url, '-o', 'encrypted.mp4', '--external-downloader', 'aria2c', '--external-downloader-args', '-x 16 -s 16 -k 1M'])   
 
